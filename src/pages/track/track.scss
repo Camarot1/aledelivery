@@ -1,0 +1,114 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+
+* {
+    font-family: 'Montserrat', sans-serif;
+    box-sizing: border-box;
+}
+
+.track-page {
+    .main {
+        background-color: #F0F0F0;
+        min-height: 100vh;
+        padding: 20px 0;
+        display: flex;
+        justify-content: center;
+    }
+
+    .main__container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+        max-width: 1200px;
+        padding: 0 20px;
+    }
+
+    .main__heading {
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+        margin-bottom: 32px;
+        text-align: center;
+        width: 100%;
+        max-width: 600px;
+    }
+
+    .heading__title {
+        font-size: 28px;
+        font-weight: 600;
+        color: #194E9B;
+        margin: 0;
+    }
+
+    .heading__text {
+        font-size: 16px;
+        color: #333;
+        margin: 0;
+        line-height: 1.5;
+    }
+
+    .span {
+        color: #194E9B;
+        font-weight: 600;
+    }
+
+    .main__track {
+        display: flex;
+        flex-direction: column;
+        background-color: #FFFFFF;
+        border-radius: 12px;
+        padding: 24px;
+        width: 100%;
+        max-width: 600px;
+        margin-bottom: 32px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    }
+
+    .track__title {
+        font-size: 22px;
+        font-weight: 600;
+        color: #333;
+        margin-bottom: 20px;
+    }
+
+    .track__input {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        margin-bottom: 24px;
+        position: relative;
+    }
+
+    .track__input input {
+        flex: 1;
+        font-size: 16px;
+        color: #000;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        padding: 12px 16px;
+        transition: border-color 0.2s ease;
+
+        &:focus {
+            outline: none;
+            border-color: #194E9B;
+        }
+    }
+
+    .track__input img {
+        width: 20px;
+        height: 20px;
+        cursor: pointer;
+    }
+
+    .track__data {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+    }
+
+    .data__text {
+        font-size: 16px;
+        color: #333;
+        line-height: 1.5;
+    }
+}

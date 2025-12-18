@@ -1,0 +1,181 @@
+.post-page {
+    .main {
+        max-width: 1920px;
+        margin: 20px auto;
+        padding: 0 20px;
+
+        &__container {
+            max-width: 600px;
+            margin: 0 auto;
+
+            @media (min-width: 768px) {
+                max-width: 800px;
+            }
+
+            @media (min-width: 1024px) {
+                max-width: 1000px;
+            }
+
+            @media (min-width: 1920px) {
+                max-width: 1200px;
+            }
+        }
+
+        &__title {
+            font-size: 24px;
+            font-weight: 600;
+            color: #2c5aa0;
+            margin-bottom: 20px;
+            text-align: center;
+
+            @media (min-width: 768px) {
+                font-size: 28px;
+                margin-bottom: 30px;
+            }
+        }
+    }
+
+    .main__calculator {
+        background: white;
+        border-radius: 12px;
+        padding: 20px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+
+        .calculator__title {
+            font-size: 20px;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        .calculator__input-group {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-bottom: 20px;
+
+            .input-field {
+                width: 100%;
+                padding: 12px 16px;
+                border: 1px solid #ddd;
+                border-radius: 8px;
+                font-size: 16px;
+                transition: border-color 0.2s ease;
+
+                &:focus {
+                    outline: none;
+                    border-color: #2c5aa0;
+                    box-shadow: 0 0 0 2px rgba(44, 90, 160, 0.1);
+                }
+
+                @media (min-width: 768px) {
+                    font-size: 18px;
+                }
+            }
+        }
+
+        .calculator__size-selector {
+            position: relative;
+            margin-bottom: 20px;
+
+            .size-selector__header {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                background-color: #f0f0f0;
+                padding: 12px 16px;
+                border-radius: 8px;
+                cursor: pointer;
+                font-size: 16px;
+                transition: background-color 0.2s ease;
+
+                &:hover {
+                    background-color: #e5e5e5;
+                }
+
+                &.open {
+                    background-color: #2c5aa0;
+                    color: white;
+
+                    svg {
+                        transform: rotate(180deg);
+                        stroke: white;
+                    }
+                }
+
+                svg {
+                    transition: transform 0.2s ease;
+                    stroke: #666;
+                }
+            }
+
+            .size-selector__list {
+                background: white;
+                border: 1px solid #ddd;
+                border-top: none;
+                border-radius: 0 0 8px 8px;
+                overflow: hidden;
+                margin-top: -1px;
+                max-height: 300px;
+                overflow-y: auto;
+
+                .size-selector__item {
+                    padding: 12px 16px;
+                    border-bottom: 1px solid #eee;
+                    cursor: pointer;
+                    transition: background-color 0.2s ease;
+
+                    &:last-child {
+                        border-bottom: none;
+                    }
+
+                    &:hover {
+                        background-color: #f9f9f9;
+                    }
+
+                    &.selected {
+                        background-color: #e6f0ff;
+                        border-left: 4px solid #2c5aa0;
+                    }
+
+                    .item__name {
+                        font-weight: 600;
+                        font-size: 16px;
+                        margin-bottom: 4px;
+                    }
+
+                    .item__dimensions {
+                        font-size: 14px;
+                        color: #666;
+                    }
+                }
+            }
+        }
+
+        .calculator__submit-btn {
+            width: 100%;
+            padding: 12px;
+            background-color: #2c5aa0;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 18px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+
+            &:hover {
+                background-color: #254d8c;
+            }
+
+            &:active {
+                background-color: #1e3f75;
+            }
+
+            @media (min-width: 768px) {
+                font-size: 20px;
+                padding: 14px;
+            }
+        }
+    }
+}

@@ -1,0 +1,58 @@
+.info__block {
+    display: flex;
+    flex-direction: column;
+    background-color: #FFFFFF;
+    width: 95%;
+    padding: 14px 0 14px 16px;
+    gap:11px;
+    .block__title {
+        font-size: 20px;
+    }
+
+    .block__buttons {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        gap: 8px;
+    }
+
+    .button-active {
+        color: #FFFFFF !important;
+        font-size: 10px;
+        background-color: #1C529C !important;
+        padding: 3px 6px;
+        border-radius: 5px;
+    }
+
+    .buttons__elem {
+        color: black;
+        background-color: #F0F0F0;
+        padding: 3px 6px;
+        border-radius: 5px;
+    }
+    .text{
+        font-size: 13px;
+    }
+    @media (min-width: 768px){
+        .block__title{
+            font-size: 15px;
+        }
+        .buttons__elem{
+            font-size: 15px;
+        }
+        .text{
+            font-size: 15px;
+        }
+    }
+    @media (min-width: 1200px){
+        .block__title{
+            font-size: 25px;
+        }
+        .buttons__elem{
+            font-size: 25px;
+        }
+        .text{
+            font-size: 25px;
+        }
+    }
+}
