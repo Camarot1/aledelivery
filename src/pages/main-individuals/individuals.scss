@@ -1,4 +1,3 @@
-// src/pages/individuals-content.scss
 
 .individuals-page {
     font-family: 'Montserrat', sans-serif;
@@ -39,8 +38,6 @@
             }
         }
     }
-
-    // Общие стили секций
     .calculator-section,
     .actions-section,
     .how-it-works-section,
@@ -74,8 +71,6 @@
         margin-bottom: 24px;
         line-height: 1.5;
     }
-
-    // Форма расчета
     .calculator-form {
         display: flex;
         flex-direction: column;
@@ -117,8 +112,6 @@
             }
         }
     }
-
-    // Кнопка "Рассчитать" как Link
     .calculate-btn {
         display: block;
         width: 100%;
