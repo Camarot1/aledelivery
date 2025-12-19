@@ -9,7 +9,8 @@ import Track from './pages/track/track.jsx'
 import PriceComm from './pages/price/pricecomm.jsx'
 import Profile from './pages/profile/profile.jsx'
 import Post from './pages/post/post.jsx';
-import Company from './pages/main-company/company.jsx'
+import Company from './pages/company/company.jsx'
+import NotFound from './pages/404/404.jsx'
 function App() {
     return (
         <Router>
@@ -25,6 +26,7 @@ function App() {
                             <Route path="/profile" element={<Profile/>}/>
                             <Route path="/post" element={<Post/>}/>
                             <Route path="/company" element={<Company/>}/>
+                            <Route path="*" element={<NotFound/>}/>
                     </Routes>
                 </main>
                 <Footer/>
