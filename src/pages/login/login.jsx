@@ -32,7 +32,6 @@ export default function Login() {
                         <img src="/img/logo.svg" alt="Логотип" />
                     </div>
                     <h1 className="main__title">Войдите в аккаунт</h1>
-
                     <form onSubmit={handleSubmit} className="login-form">
                         <div className="main__number">
                             <div className="custom-select-wrapper">
@@ -41,23 +40,11 @@ export default function Login() {
                                     onClick={() => setIsCountryOpen(!isCountryOpen)}
                                 >
                                     <span>{selectedCountry.code}</span>
-                                    <svg
-                                        width="12"
-                                        height="12"
-                                        viewBox="0 0 12 12"
-                                        fill="none"
-                                        xmlns="http://www.w3.org/2000/svg"
-                                    >
-                                        <path
-                                            d="M3 5L6 8L9 5"
-                                            stroke="#9A9A9A"
-                                            strokeWidth="1.5"
-                                            strokeLinecap="round"
-                                            strokeLinejoin="round"
+                                    <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M3 5L6 8L9 5" stroke="#9A9A9A" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"
                                         />
                                     </svg>
                                 </div>
-
                                 {isCountryOpen && (
                                     <ul className="custom-options-list">
                                         {countries.map((country) => (
@@ -75,21 +62,13 @@ export default function Login() {
                                 )}
                             </div>
                             <input
-                                className="number__text"
-                                type="text"
-                                placeholder="000 000 00 00"
-                                required
+                                className="number__text" type="text" placeholder="000 000 00 00" required
                             />
                         </div>
-
                         <label className="main__checkbox">
-                            <input
-                                type="checkbox"
-                                className="checkbox"
-                            />
+                            <input type="checkbox" className="checkbox" />
                             <span className="checkbox__text">Запомнить меня</span>
                         </label>
-
                         <div className="main__capcha">
                             <div className="capcha__row">
                                 <div className="capcha__img">
@@ -100,18 +79,12 @@ export default function Login() {
                                 </div>
                             </div>
                             <input
-                                className="capcha__input"
-                                type="text"
-                                placeholder="Введите текст с картинки"
-                                required
-                            />
+                                className="capcha__input" type="text" placeholder="Введите текст с картинки" required />
                         </div>
 
                         <label className="main__terms-agreement">
                             <input
-                                type="checkbox"
-                                className="checkbox checkbox--agreement"
-                                required
+                                type="checkbox" className="checkbox checkbox--agreement" required
                             />
                             <span className="terms-text">
                                 Я согласен на обработку персональных данных

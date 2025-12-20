@@ -5,7 +5,6 @@ import Info from '../../components/info.jsx';
 
 export default function Profile() {
     const [active, setActive] = useState("actives");
-
     return (
         <div className="profile-page">
             <main className="main">

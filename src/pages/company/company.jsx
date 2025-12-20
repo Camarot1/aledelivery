@@ -1,4 +1,4 @@
-// src/pages/Company.jsx
+
 import React from 'react';
 import './company.scss';
 
