@@ -11,6 +11,7 @@ import Profile from './pages/profile/profile.jsx'
 import Post from './pages/post/post.jsx';
 import Company from './pages/company/company.jsx'
 import NotFound from './pages/404/404.jsx'
+import Admin from './pages/admin/Admin.jsx';
 function App() {
     return (
         <Router>
@@ -27,6 +28,7 @@ function App() {
                             <Route path="/post" element={<Post/>}/>
                             <Route path="/company" element={<Company/>}/>
                             <Route path="*" element={<NotFound/>}/>
+                             <Route path="/admin" element={<Admin />} />
                     </Routes>
                 </main>
                 <Footer/>
