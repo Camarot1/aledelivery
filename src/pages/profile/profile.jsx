@@ -1,123 +1,59 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
-// Импортируй Info из твоего старого компонента
-import Info from '../../components/info.jsx'; 
-import './profile.scss'; // Не забудь подключить стили
-
-const API_URL = 'http://localhost:3001/api'; 
+import React, { useEffect, useState } from 'react';
+import './profile.scss';
+import Info from '../../components/info.jsx';
 
 export default function Profile() {
-    const [user, setUser] = useState(null);
-    const [phoneInput, setPhoneInput] = useState('');
-    const [parcels, setParcels] = useState([]);
-    const [activeTab, setActiveTab] = useState("actives"); // 'actives' | 'complete'
+    const [orders, setOrders] = useState([]);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState('');
 
-    // 1. Проверка входа (проверяет в БД пользователя)
+    // В реальном приложении телефон берется из localStorage или JWT токена после логина
+    const userPhone = "79001234567"; 
+
     useEffect(() => {
-        const storedPhone = localStorage.getItem('user_phone');
-        if (storedPhone) {
-            setUser({ phone: storedPhone });
-            fetchOrders();
-        }
-    }, []);
+        const fetchOrders = async () => {
+            try {
+                const response = await fetch(`http://localhost:3001/api/parcels/${userPhone}`);
+                if (!response.ok) throw new Error('Не удалось загрузить заказы');
+                
+                const data = await response.json();
+                setOrders(data);
+            } catch (err) {
+                setError(err.message);
+            } finally {
+                setLoading(false);
+            }
+        };
 
-    // Загрузка заказов при входе
-    const fetchOrders = async () => {
-        if (!user) return;
-        try {
-            const response = await axios.get(`${API_URL}/parcels/${user.phone}`);
-            setParcels(response.data);
-        } catch (error) {
-            console.error("Ошибка загрузки заказов", error);
-        }
-    };
-
-    // 2. Ввод телефона для входа (если не залогинен)
-    const handleLogin = async (e) => {
-        e.preventDefault();
-        try {
-            const response = await axios.post(`${API_URL}/auth/login`, { phone: phoneInput, code: '1234' });
-            const userData = response.data;
-            localStorage.setItem('user_phone', userData.phone);
-            setUser(userData);
-            fetchOrders(); // Загрузить заказы сразу после входа
-        } catch (error) {
-            console.error(error.response?.data?.error || "Ошибка входа");
-        }
-    };
+        fetchOrders();
+    }, [userPhone]);
 
     return (
         <div className="profile-page">
             <main className="main">
                 <div className="main__container container">
-                    {/* Если не залогинен - экран входа */}
-                    {!user && (
-                        <section className="login-block">
-                            <h1 className="main__title">Войдите в аккаунт</h1>
-                            <form onSubmit={handleLogin}>
-                                <input 
-                                    type="text" 
-                                    placeholder="Номер телефона (+7...)" 
-                                    value={phoneInput}
-                                    onChange={(e) => setPhoneInput(e.target.value)}
-                                    required 
-                                />
-                                <div className="main__capcha">
-                                    <div className="capcha__row">
-                                        {/* Заглушка для капчи, в реальности будет fetch к бэку */}
-                                        <img src="/img/button.svg" alt="" />
-                                    </div>
-                                </div>
-                                <button type="submit" className="main__button">Войти</button>
-                            </form>
-                        </section>
+                    <h1 className="main__title">Мои посылки</h1>
+
+                    {loading && <div className="data__text">Загрузка ваших заказов...</div>}
+                    {error && <div className="data__text" style={{ color: 'red' }}>{error}</div>}
+
+                    {!loading && orders.length === 0 && (
+                        <div className="data__text">У вас пока нет оформленных заказов.</div>
                     )}
 
-                    {/* Если залогинен - список заказов */}
-                    {user && (
-                        <>
-                            <div className="profile-header">
-                                <h1 className="main__title">Мои посылки</h1>
-                                <button onClick={() => localStorage.removeItem('user_phone')} style={{marginRight:'20px'}}>Выйти</button>
+                    {orders.map((order) => (
+                        <div key={order.id} className="main__track" style={{ marginBottom: '15px' }}>
+                            <div className="track__title">Заказ {order.tracking_number}</div>
+                            <div className="track__data">
+                                <div className="data__text"><strong>Статус:</strong> {order.status}</div>
+                                <div className="data__text"><strong>Адрес:</strong> {order.delivery_address}</div>
+                                <div className="data__text"><strong>Цена:</strong> {order.price} ₽</div>
+                                <div className="data__text"><strong>Дата:</strong> {new Date(order.created_at).toLocaleDateString()}</div>
                             </div>
+                        </div>
+                    ))}
 
-                            <section className="main__track">
-                                <h2 className="track__title">Отследить заказ</h2>
-                                <div className="track__data-list">
-                                    {parcels.length === 0 ? (
-                                        <p>Пока нет заказов</p>
-                                    ) : parcels.map(parcel => (
-                                        <div key={parcel.id} className="track__data-block">
-                                            <div className="data__text">Номер: {parcel.tracking_number}</div>
-                                            <div className="data__text" style={{color:'green'}}>Статус: {parcel.status.toUpperCase()}</div>
-                                            <div className="data__text">{new Date(parcel.created_at).toLocaleDateString()}</div>
-                                        </div>
-                                    ))}
-                                </div>
-                            </section>
-
-                            {/* Табы (Активные/Завершенные) */}
-                            <section className="main__trackable">
-                                <h2 className="trackable__title">Фильтр</h2>
-                                <div className="trackable__buttons">
-                                    <button
-                                        className={`button ${activeTab === "actives" ? "button-active" : ""}`}
-                                        onClick={() => setActiveTab("actives")}
-                                    >
-                                        Активные
-                                    </button>
-                                    <button
-                                        className={`button ${activeTab === "complete" ? "button-active" : ""}`}
-                                        onClick={() => setActiveTab("complete")}
-                                    >
-                                        Завершенные
-                                    </button>
-                                </div>
-                            </section>
-
-                            <Info />
-                        </>
-                    )}
+                    <Info />
                 </div>
             </main>
         </div>
