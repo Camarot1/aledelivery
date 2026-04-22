@@ -41,7 +41,7 @@ export default function Footer() {
                     </div>
                 </div>
                 <div className="footer__info">
-                    © 2006 - 2025 Все права защищены.
+                    © 2006 - 2026 Все права защищены.
                 </div>
             </div>
         </footer>

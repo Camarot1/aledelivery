@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-
+import './register.scss'
 export default function Register() {
     const [formData, setFormData] = useState({
         phone: '',
         password: '',
         full_name: ''
     });
-    const [error, setError] = useState(''); 
+    const [error, setError] = useState('');
     const [success, setSuccess] = useState('');
 
     const handleChange = (e) => {
@@ -33,7 +33,7 @@ export default function Register() {
             }
 
             setSuccess('Регистрация успешна! Теперь войдите.');
-            setFormData({ phone: '', password: '', full_name: '' }); 
+            setFormData({ phone: '', password: '', full_name: '' });
         } catch (err) {
             setError(err.message);
         }
@@ -53,34 +53,35 @@ export default function Register() {
                     {success && <div className="success-message" style={{ color: 'green', marginBottom: '10px' }}>{success}</div>}
 
                     <form onSubmit={handleSubmit} className="login-form">
-                        <input
-                            className="form-input"
-                            name="full_name"
-                            type="text"
-                            placeholder="Ваше Имя"
-                            value={formData.full_name}
-                            onChange={handleChange}
-                            required
-                        />
-                        <input
-                            className="form-input"
-                            name="phone"
-                            type="tel"
-                            placeholder="Номер телефона"
-                            value={formData.phone}
-                            onChange={handleChange}
-                            required
-                        />
-                        <input
-                            className="form-input"
-                            name="password"
-                            type="password"
-                            placeholder="Придумайте пароль"
-                            value={formData.password}
-                            onChange={handleChange}
-                            required
-                        />
-
+                        <div className="form__block">
+                            <input
+                                className="form-input"
+                                name="full_name"
+                                type="text"
+                                placeholder="Ваше Имя"
+                                value={formData.full_name}
+                                onChange={handleChange}
+                                required
+                            />
+                            <input
+                                className="form-input"
+                                name="phone"
+                                type="tel"
+                                placeholder="Номер телефона"
+                                value={formData.phone}
+                                onChange={handleChange}
+                                required
+                            />
+                            <input
+                                className="form-input"
+                                name="password"
+                                type="password"
+                                placeholder="Придумайте пароль"
+                                value={formData.password}
+                                onChange={handleChange}
+                                required
+                            />
+                        </div>
                         <button type="submit" className="main__button">Зарегистрироваться</button>
                     </form>
 

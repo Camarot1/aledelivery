@@ -9,26 +9,20 @@ export default function Login() {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        setError('');
 
-        try {
-            const response = await fetch('http://localhost:3001/api/auth/login', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ phone, code: password }),
-            });
-
-            const data = await response.json();
-
-            if (!response.ok) {
-                throw new Error(data.error || 'Ошибка входа');
-            }
-
-            // Если успех — перенаправляем в профиль или на главную
-            window.location.href = '/profile';
-        } catch (err) {
-            setError(err.message);
+        const res = await fetch('http://localhost:3001/api/auth/login', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ phone, password })
+        });
+        const data = await res.json();
+        if (!res.ok) {
+            setError(data.error);
+            return;
         }
+        localStorage.setItem('userPhone', data.user.phone);
+        localStorage.setItem('isAdmin', data.user.isAdmin);
+        window.location.href = data.user.isAdmin ? '/admin' : '/profile';
     };
 
     return (
@@ -43,23 +37,24 @@ export default function Login() {
                     {error && <div className="error-message" style={{ color: 'red', marginBottom: '10px' }}>{error}</div>}
 
                     <form onSubmit={handleSubmit} className="login-form">
-                        <input
-                            className="form-input"
-                            type="tel"
-                            placeholder="Номер телефона"
-                            value={phone}
-                            onChange={(e) => setPhone(e.target.value)}
-                            required
-                        />
-                        <input
-                            className="form-input"
-                            type="password"
-                            placeholder="Пароль или код"
-                            value={password}
-                            onChange={(e) => setPassword(e.target.value)}
-                            required
-                        />
-
+                        <div className="form__input">
+                            <input
+                                className="form-input"
+                                type="tel"
+                                placeholder="Номер телефона"
+                                value={phone}
+                                onChange={(e) => setPhone(e.target.value)}
+                                required
+                            />
+                            <input
+                                className="form-input"
+                                type="password"
+                                placeholder="Пароль или код"
+                                value={password}
+                                onChange={(e) => setPassword(e.target.value)}
+                                required
+                            />
+                        </div>
                         <button type="submit" className="main__button">Войти</button>
                     </form>
 

@@ -1,0 +1,11 @@
+.form__block{
+    display:flex;
+    flex-direction:column;
+    gap:15px;
+    margin-bottom: 15px;
+    .form-input{
+        border: 1px solid black;
+        border-radius: 5px;
+        padding: 5px;
+    }
+}

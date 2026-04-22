@@ -78,6 +78,18 @@
         }
     }
 
+    .form__input {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+        margin-bottom: 15px;
+        .form-input{
+            border: 1px solid black;
+            border-radius:5px;
+            padding:5px;
+        }
+    }
+
     .custom-options-list {
         position: absolute;
         top: 100%;
@@ -125,6 +137,7 @@
         cursor: pointer;
         user-select: none;
         margin-bottom: 20px;
+
         .checkbox {
             appearance: none;
             width: 18px;

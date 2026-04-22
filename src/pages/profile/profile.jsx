@@ -7,30 +7,22 @@ export default function Profile() {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState('');
 
-    // Пытаемся достать номер телефона из localStorage (который мы положим туда при логине)
-    // Если его нет — берем заглушку для теста
     const userPhone = localStorage.getItem('userPhone'); 
 
     useEffect(() => {
-        const fetchOrders = async () => {
-            try {
-                setLoading(true);
-                const response = await fetch(`http://localhost:3001/api/parcels/${userPhone}`);
-                if (!response.ok) throw new Error('Не удалось загрузить заказы');
-                
-                const data = await response.json();
-                setOrders(data);
-            } catch (err) {
-                setError(err.message);
-            } finally {
-                setLoading(false);
-            }
-        };
+    const fetchOrders = async () => {
+        const phone = localStorage.getItem('userPhone');
 
-        fetchOrders();
-    }, [userPhone]);
+        const res = await fetch(`http://localhost:3001/api/parcels/user/${phone}`);
+        const data = await res.json();
 
-    // ... остальной JSX как был ранее
+        setOrders(data);
+        setLoading(false);
+    };
+
+    fetchOrders();
+}, []);
+
 
     return (
         <div className="profile-page">

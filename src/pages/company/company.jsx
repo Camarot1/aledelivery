@@ -1,13 +1,59 @@
-
-import React from 'react';
+import React, { useState } from 'react';
 import './company.scss';
 
 export default function Company() {
+    const [formData, setFormData] = useState({
+        companyName: '',
+        contactName: '',
+        phone: '',
+        email: ''
+    });
+
+    const [message, setMessage] = useState('');
+
+    const handleChange = (e) => {
+        setFormData({
+            ...formData,
+            [e.target.name]: e.target.value
+        });
+    };
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        setMessage('');
+
+        try {
+            const res = await fetch('http://localhost:3001/api/company-request', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(formData)
+            });
+
+            const data = await res.json();
+
+            if (!res.ok) {
+                throw new Error(data.error || 'Ошибка отправки');
+            }
+
+            setMessage('Заявка отправлена! Мы скоро свяжемся с вами.');
+
+            setFormData({
+                companyName: '',
+                contactName: '',
+                phone: '',
+                email: ''
+            });
+
+        } catch (err) {
+            setMessage(err.message);
+        }
+    };
+
     return (
         <div className="company-page">
             <main className="main">
                 <div className="main__container container">
-                    {/* Заголовок */}
+
                     <h1 className="main__title">Решения для бизнеса</h1>
 
                     <section className="company-section">
@@ -97,23 +143,68 @@ export default function Company() {
                         </div>
                     </section>
 
+
                     <section className="contact-section">
                         <h2 className="section__title">Готовы начать?</h2>
                         <p className="contact-text">
                             Оставьте заявку, и наш специалист свяжется с вами в течение 15 минут.
                         </p>
-                        <div className="contact-form">
-                            <div className="form-row">
-                                <input type="text" placeholder="Название компании" className="form-input" />
-                                <input type="text" placeholder="Ваше имя" className="form-input" />
+
+                        {message && (
+                            <div style={{ marginBottom: '10px', color: 'green' }}>
+                                {message}
                             </div>
+                        )}
+
+                        <form className="contact-form" onSubmit={handleSubmit}>
                             <div className="form-row">
-                                <input type="tel" placeholder="Телефон" className="form-input" />
-                                <input type="email" placeholder="Email" className="form-input" />
+                                <input
+                                    name="companyName"
+                                    type="text"
+                                    placeholder="Название компании"
+                                    className="form-input"
+                                    value={formData.companyName}
+                                    onChange={handleChange}
+                                    required
+                                />
+                                <input
+                                    name="contactName"
+                                    type="text"
+                                    placeholder="Ваше имя"
+                                    className="form-input"
+                                    value={formData.contactName}
+                                    onChange={handleChange}
+                                    required
+                                />
                             </div>
-                            <button className="primary-btn">Отправить заявку</button>
-                        </div>
+
+                            <div className="form-row">
+                                <input
+                                    name="phone"
+                                    type="tel"
+                                    placeholder="Телефон"
+                                    className="form-input"
+                                    value={formData.phone}
+                                    onChange={handleChange}
+                                    required
+                                />
+                                <input
+                                    name="email"
+                                    type="email"
+                                    placeholder="Email"
+                                    className="form-input"
+                                    value={formData.email}
+                                    onChange={handleChange}
+                                    required
+                                />
+                            </div>
+
+                            <button type="submit" className="primary-btn">
+                                Отправить заявку
+                            </button>
+                        </form>
                     </section>
+
                 </div>
             </main>
         </div>
