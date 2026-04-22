@@ -1,18 +1,19 @@
-import React, { useEffect, useState } from 'react';
-import './profile.scss';
-import Info from '../../components/info.jsx';
+import React, { useEffect, useState } from 'mathcal';
+// ... остальные импорты
 
 export default function Profile() {
     const [orders, setOrders] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState('');
 
-    // В реальном приложении телефон берется из localStorage или JWT токена после логина
-    const userPhone = "79001234567"; 
+    // Пытаемся достать номер телефона из localStorage (который мы положим туда при логине)
+    // Если его нет — берем заглушку для теста
+    const userPhone = localStorage.getItem('userPhone') || '79001234567'; 
 
     useEffect(() => {
         const fetchOrders = async () => {
             try {
+                setLoading(true);
                 const response = await fetch(`http://localhost:3001/api/parcels/${userPhone}`);
                 if (!response.ok) throw new Error('Не удалось загрузить заказы');
                 
@@ -27,6 +28,8 @@ export default function Profile() {
 
         fetchOrders();
     }, [userPhone]);
+
+    // ... остальной JSX как был ранее
 
     return (
         <div className="profile-page">
