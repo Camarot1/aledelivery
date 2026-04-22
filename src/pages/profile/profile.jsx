@@ -1,5 +1,6 @@
-import React, { useEffect, useState } from 'mathcal';
-// ... остальные импорты
+import React, { useEffect, useState } from 'react';
+import './profile.scss'
+import Info from '../../components/info.jsx'
 
 export default function Profile() {
     const [orders, setOrders] = useState([]);
@@ -8,7 +9,7 @@ export default function Profile() {
 
     // Пытаемся достать номер телефона из localStorage (который мы положим туда при логине)
     // Если его нет — берем заглушку для теста
-    const userPhone = localStorage.getItem('userPhone') || '79001234567'; 
+    const userPhone = localStorage.getItem('userPhone'); 
 
     useEffect(() => {
         const fetchOrders = async () => {

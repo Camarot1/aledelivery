@@ -12,6 +12,7 @@ import Post from './pages/post/post.jsx';
 import Company from './pages/company/company.jsx'
 import NotFound from './pages/404/404.jsx'
 import Admin from './pages/admin/Admin.jsx';
+import Register from './pages/register/register.jsx';
 function App() {
     return (
         <Router>
@@ -28,7 +29,8 @@ function App() {
                             <Route path="/post" element={<Post/>}/>
                             <Route path="/company" element={<Company/>}/>
                             <Route path="*" element={<NotFound/>}/>
-                             <Route path="/admin" element={<Admin />} />
+                            <Route path="/admin" element={<Admin />} />
+                            <Route path="/register" element={<Register />} />
                     </Routes>
                 </main>
                 <Footer/>
